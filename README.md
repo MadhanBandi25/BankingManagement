@@ -72,7 +72,7 @@
 │  │ /api/fixed-deposits│        │   (Spring Data)    │             │
 │  └────────────────────┘        └────────┬───────────┘             │
 │                                         │                         │
-└─────────────────────────────────────────┼───────────────────────--┘
+└─────────────────────────────────────────┼─────────────────────────┘
                                           │
                         ┌─────────────────▼──────────────────────┐
                         │           MySQL Database               │
@@ -235,9 +235,9 @@ banking-system/
            │ 1
            │ owns
            │ N
-┌──────────▼─────────────────----┐
+┌──────────▼─────────────────────┐
 │          ACCOUNT               │
-├──────────────────────────────--┤
+├────────────────────────────────┤
 │ id (PK)                        │
 │ accountNumber  UNIQUE          │
 │ customer_id    FK → customer   │
@@ -245,21 +245,21 @@ banking-system/
 │ status         ENUM            │◄── ACTIVE | BLOCKED | CLOSED
 │ balance        DECIMAL         │
 │ branch, ifscCode               │
-└─────┬───────┬────────---─┬─────┘
+└─────┬───────┬────────────┬─────┘
       │ N     │ N          │ N
       │       │            │
-┌─────▼───┐ ┌─▼───────-─┐ ┌▼─────────────---┐
+┌─────▼───┐ ┌─▼─────────┐ ┌▼────────────────┐
 │TRANSACTN│ │BENEFICIARY│ │     LOAN        │
-├─────────┤ ├─────────-─┤ ├──────────────--─┤
+├─────────┤ ├─────────-─┤ ├─────────────────┤
 │type ENUM│ │status ENUM│ │loanType ENUM    │
 │amount   │ │(PENDING/  │ │status ENUM      │
 │refNumber│ │ APPROVED/ │ │(APPLIED/        │
 │         │ │ REJECTED) │ │ APPROVED/       │
-└─────────┘ └─────────-─┘ │ REJECTED/CLOSED)│
+└─────────┘ └───────────┘ │ REJECTED/CLOSED)│
                           └────────┬────────┘
                                    │ 1
                                    │ N
-                            ┌──────▼──────── ─┐
+                            ┌──────▼──────────┐
                             │  LOAN_PAYMENT   │
                             ├─────────────────┤
                             │ loan_id FK      │
@@ -267,7 +267,7 @@ banking-system/
                             │ referenceNumber │
                             └─────────────────┘
 
-┌────────────────────────────--┐
+┌──────────────────────────────┐
 │       FIXED_DEPOSIT          │
 ├──────────────────────────────┤
 │ account_id FK → account      │
@@ -593,5 +593,4 @@ This project currently has **no authentication/authorization layer** (no Spring 
 3. Add input validation, sanitization, and rate limiting on transaction endpoints (deposit/withdraw/transfer) to prevent abuse.
 4. Add `.gitignore` for `application.properties` and provide an `application.properties.example` template.
 
----
 ---
